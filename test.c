@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 07:25:19 by tdumouli          #+#    #+#             */
-/*   Updated: 2016/12/20 09:10:55 by tdumouli         ###   ########.fr       */
+/*   Updated: 2016/12/23 07:27:24 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,47 @@
 #include <unistd.h>
 #include "libft/libft.h"
 #include <sys/stat.h>
+#include "ls.h"
 
 #include<stdio.h>
 
-int main (int ac, char *av[]) {
-	int len;
+int main (int ac, char *av[])
+{
+	if (ac < 2)
+		affiche(".");
+	else
+		affiche(av[1]);
+	return 0;
+}
+
+int affiche(char *dir)
+{
 	struct dirent *pDirent;
 	DIR *pDir;
 	struct stat a;
+	t_slist *rec;
+	t_slist *tmp;
 
-	if (ac < 2) {
-		pDir = opendir (".");
-	}
-	else
-		pDir = opendir (av[1]);
-	if (pDir == NULL) {
+	if (!(pDir = opendir (dir)))
 		ft_erreur("Cannot open directory");
-		return 1;
-	}
-
-	while ((pDirent = readdir(pDir)) != NULL) {
+	while ((pDirent = readdir(pDir)) != NULL)
+	{
 		stat(pDirent->d_name, &a);
-		//printf("%u\n", a.st_uid);
-		ft_putstr(pDirent->d_name);
+		if(S_ISDIR(a.st_mode) && *pDirent->d_name != '.')
+		{
+			ft_slstadd(&tmp, dir, pDirent->d_name);
+			if (!rec)
+				rec = tmp;
+		ft_putstr(tmp->data);
+		}
+	//	ft_putstr(pDirent->d_name);
 		write(1, "\n", 1);
+	}
+	while(rec)
+	{
+		//ft_putstr(rec->data);
+		//affiche(rec->data);
+		rec = rec->next;
 	}
 	closedir (pDir);
 	return 0;
