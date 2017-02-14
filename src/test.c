@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 07:25:19 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/12 19:10:29 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/14 20:03:03 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			morething(char **av, t_flag_ls *flag, int i, int ac)
 		}
 		else if (S_ISDIR(a.st_mode))
 		{
-			ft_slstadd(&tmp, NULL, av[i], rep);
+			ft_slstadd(&tmp, NULL, av[i]);
 			if (!rep)
 				rep = tmp;
 		}
@@ -98,16 +98,13 @@ int			main(int ac, char *av[])
 
 void		recu(t_slist *rec, t_flag_ls *flag)
 {
-	t_slist *tmp;
-
-	while ((tmp = rec))
+	while (rec)
 	{
 		write(1, "\n", 1);
 		ft_putstr((((rec)->data)));
 		write(1, ":\n", 2);
 		dossier((rec)->data, flag);
 		rec = rec->next;
-	//		ft_slstdelone(&tmp);
 	}
 }
 
@@ -156,7 +153,7 @@ int			fichier(char *dir, t_flag_ls *flag, t_slist **tmp, t_slist *ite)
 	if (ite && flag->mr && S_ISDIR(a.st_mode) &&
 			ft_strcmp((char *)(ite->data + ite->sizeofdir + 1), ".") &&
 			ft_strcmp((char *)(ite->data + ite->sizeofdir + 1), ".."))
-		ft_slstadd(tmp, dir, ite->data + ite->sizeofdir + 1, ite);
+		ft_slstadd(tmp, dir, ite->data + ite->sizeofdir + 1);
 	if (flag->l)
 		option_l(a);
 	if (ite)
@@ -186,29 +183,17 @@ static void fichiers(t_slist *ite, t_flag_ls *flag, char *dir, t_slist **rec)
 	}
 }
 
-int			dossier(char *dir, t_flag_ls *flag)
+int			parcourtrep(char *dir, t_flag_ls *flag, DIR	*p_dir, t_slist **rec)
 {
 	struct dirent	*p_dirent;
-	DIR				*p_dir;
-	char			*err;
-	t_slist			*rec;
 	t_slist			*ite;
 	t_slist			*tmp;
 
 	tmp = NULL;
-	rec = NULL;
-	if (!(p_dir = opendir(dir)))
-	{
-		while (!(err = ft_strjoin("ft_ls: ", ft_strrchr(dir, '/') + 1)))
-			;
-		perror(err);
-		free(err);
-		return (-1);
-	}
 	ite = NULL;
 	while ((p_dirent = readdir(p_dir)) != NULL)
 	{
-		if (ft_slstadd(&tmp, dir, p_dirent->d_name, ite))
+		if (ft_slstadd(&tmp, dir, p_dirent->d_name))
 		{
 			ft_slstdel(&ite);
 			return (-1);
@@ -216,20 +201,37 @@ int			dossier(char *dir, t_flag_ls *flag)
 		if (!ite)
 			ite = tmp;
 	}
-	tmp->next = NULL;
+	closedir(p_dir);
+	//tmp->next = NULL;
 	if (flag->l && (ite->next->next || flag->a))
 		total(ite);
 	if (flag->t)
 		ite = ft_slstsort(&ite, sorttime);
 	if (flag->r)
 		ite = ft_slstreverse(&ite);
-	fichiers(ite, flag, dir, &rec);
+	fichiers(ite, flag, dir, rec);
+	ft_slstdel(&ite);
+	return(0);	
+}
 
-	if (closedir(p_dir))
+int			dossier(char *dir, t_flag_ls *flag)
+{
+	t_slist			*rec;
+	DIR				*p_dir;
+	char			*err;
+
+	rec = NULL;
+	if ((p_dir = opendir(dir)) == NULL)
+	{
+		while (!(err = ft_strjoin("ft_ls: ", ft_strrchr(dir, '/') + 1)))
+			;
+		perror(err);
+		free(err);
 		return (-1);
+	}
+	parcourtrep(dir, flag, p_dir, &rec);
 	if (flag->mr)
 		recu(rec, flag);
 	ft_slstdel(&rec);
-	ft_slstdel(&ite);
 	return (0);
 }

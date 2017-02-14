@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 18:30:55 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/11 23:01:12 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/14 20:09:51 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void			ft_flag_lstdelone(t_flag_ls **adlst);
 
 typedef struct	s_slist
 {
-	void			*data;
+	char			*data;
 	int				sizeofdir;
 	struct s_slist	*next;
 }				t_slist;
 
-int				ft_slstadd(t_slist **q, void *i, void *c, t_slist *f);
+int				ft_slstadd(t_slist **q, char *i, char *c);
 void			ft_slstdelone(t_slist **q);
 void			ft_slstdel(t_slist **q);
 t_slist			*ft_slstreverse(t_slist **q);

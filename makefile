@@ -6,7 +6,7 @@
 #    By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/08 16:51:40 by tdumouli          #+#    #+#              #
-#    Updated: 2017/02/11 21:07:06 by tdumouli         ###   ########.fr        #
+#    Updated: 2017/02/14 19:40:16 by tdumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ all: objdir $(NAME)
 	@echo $(GREEN)"compilation reussi"$(NO_COLOR)
 else
 all: objdir $(NAMECPL)
-	@echo $(GREEN)"compilation reussi"$(NO_COLOR)
+	@echo $(GREEN)"compilation reussi cpl"$(NO_COLOR)
 endif
 
 objdir:
@@ -62,7 +62,7 @@ $(NAME): $(OBJ)
 
 $(NAMECPL): $(OBJ)
 	@$(MAKE) -C $(SRCDIR)/libft
-	@$(CC) $(SRCDIR)/$(LIB) $(OBJ) -o $(NAMECPL)
+	@$(CC) $(OBJ) $(SRCDIR)/$(LIB) -o $(NAMECPL) -fsanitize=address -g3
 	@echo $(GREEN)$(NAMECPL)" a ete cree"$(NO_COLOR)
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 23:02:45 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/12 19:05:49 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/14 20:13:46 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,26 @@
 #include "libft/include/libft.h"
 #include <stdlib.h>
 /*
-static int	ft_slstfind(void *content, t_slist *lstf)
-{
-	while (lstf && lstf->next)
-	{
-		if (!ft_strcmp(content, lstf->data))
-			return (1);
-		lstf = lstf->next;
-	}
-	return (0);
-}*/
+   static int	ft_slstfind(void *content, t_slist *lstf)
+   {
+   while (lstf && lstf->next)
+   {
+   if (!ft_strcmp(content, lstf->data))
+   return (1);
+   lstf = lstf->next;
+   }
+   return (0);
+   }*/
 
-int			ft_slstadd(t_slist **lst, void *dir, void *ct, t_slist *lstf)
+int			ft_slstadd(t_slist **lst, char *dir, char *ct)
 {
 	t_slist		*ret;
 	char		*s;
 	int			data_siz;
 	int			dir_size;
 
-	(void)lstf;
-	//if (ft_slstfind(ct, lstf))
-	//	return (2);
 	dir_size = ft_strlen(dir);
-	data_siz = ft_strlen(ct) + 2 * !(dir == NULL) - (dir_size == 1);
+	data_siz = ft_strlen(ct) + 1 + !(dir == NULL);
 	if (!(ret = (t_slist *)malloc(sizeof(t_slist))))
 		return (1);
 	if (!(ret->data = malloc(dir_size + data_siz)))
@@ -81,7 +78,8 @@ void		ft_slstdelone(t_slist **adlst)
 	if (*adlst)
 	{
 		if ((*adlst)->data)
-			free((*adlst)->data);
+			free(((*adlst)->data));
+		(*adlst)->data = NULL;
 		free(*adlst);
 		*adlst = NULL;
 	}
