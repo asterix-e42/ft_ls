@@ -76,7 +76,8 @@ int			main(int ac, char *av[])
 	int				i;
 	t_flag_ls		*flag;
 
-	flag = init_flag_ls();
+	if(!(flag = init_flag_ls()))
+		return(3);
 	i = 0;
 	if (ac < 2)
 	{
@@ -85,7 +86,7 @@ int			main(int ac, char *av[])
 	}
 	while (ac != i + 1 && *av[i + 1] == '-' && ++i)
 		if ((def(flag, av[i])) == 1)
-			return(1);
+			return(ft_flag_lstdelone(&flag) + 1);
 	if (ac ==  i + 1)
 		dossier(".", flag);
 	else if (ac == i + 2)

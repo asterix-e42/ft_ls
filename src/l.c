@@ -50,7 +50,7 @@ static void	print(struct stat filestat)
 	write(1, (filestat.st_mode & S_IXOTH) ? "x" : "-", 1);
 }
 
-void		major(struct stat a)
+void		ft_major(struct stat a)
 {
 	ft_putnbr(a.st_rdev / 16777216);
 	ft_putstr(",  ");
@@ -74,7 +74,7 @@ void		option_l(struct stat a)
 		ft_putstr(grp->gr_name);
 	write(1, " ", 1);
 	if (S_ISCHR(a.st_mode) || S_ISBLK(a.st_mode))
-		major(a);
+		ft_major(a);
 	else
 		ft_putnbr(a.st_size);
 	write(1, " ", 1);

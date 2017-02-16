@@ -52,11 +52,12 @@ int			def(t_flag_ls *flag, char *chain)
 	return (0);
 }
 
-void		ft_flag_lstdelone(t_flag_ls **adlst)
+int			ft_flag_lstdelone(t_flag_ls **adlst)
 {
 	if (*adlst)
 	{
 		free(*adlst);
 		*adlst = NULL;
 	}
+	return (1);
 }

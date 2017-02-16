@@ -13,44 +13,46 @@
 #include "ls.h"
 #include "libft/include/libft.h"
 #include <stdlib.h>
-/*
-   static int	ft_slstfind(void *content, t_slist *lstf)
-   {
-   while (lstf && lstf->next)
-   {
-   if (!ft_strcmp(content, lstf->data))
-   return (1);
-   lstf = lstf->next;
-   }
-   return (0);
-   }*/
 
-int			ft_slstadd(t_slist **lst, char *dir, char *ct)
+t_slist		*ft_slstremp(char *dir, char *ct)
 {
 	t_slist		*ret;
-	char		*s;
+//	char		*s;
+	char 		sep;
 	int			data_siz;
 	int			dir_size;
 
-	dir_size = ft_strlen(dir);
-	data_siz = ft_strlen(ct) + 1 + !(dir == NULL);
+	dir_size = 0;
+	sep = 0;
+	if (dir && (dir_size = ft_strlen(dir)) != 0)
+		sep = 1;
+	data_siz = ft_strlen(ct);
 	if (!(ret = (t_slist *)malloc(sizeof(t_slist))))
-		return (1);
-	if (!(ret->data = malloc(dir_size + data_siz)))
-		return (1);
+		return (NULL);
+	if (!(ret->data = malloc(dir_size + data_siz + sep + 1)))
+		return (NULL);
 	ret->sizeofdir = dir_size;
-	s = (char *)ret->data;
-	*(s + data_siz + dir_size) = 0;
+	//(char *)ret->data;
+	*((char *)ret->data + data_siz + dir_size + sep) = 0;
 	while (--data_siz + 1)
-		*(s + data_siz + dir_size) = *(char *)(ct + data_siz - !(!dir));
-	if (dir)
-		*(s + dir_size) = '/';
+		*(ret->data + data_siz + dir_size + sep) = *(char *)(ct + data_siz);
+	if (sep)
+		*(ret->data + dir_size) = '/';
 	while (--dir_size + 1)
-		*(s + dir_size) = *(char *)(dir + dir_size);
+		*(ret->data + dir_size) = *(char *)(dir + dir_size);
 	ret->next = NULL;
+	return(ret);
+}
+
+int			ft_slstadd(t_slist **lst, char *dir, char *ct)
+{
+	t_slist		*cel;
+
+	if (!(cel = ft_slstremp(dir, ct)))
+		return(1);
 	if (*lst)
-		(*lst)->next = ret;
-	*lst = ret;
+		(*lst)->next = cel;
+	*lst = cel;
 	return (0);
 }
 
