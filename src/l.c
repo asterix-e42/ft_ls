@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 07:25:19 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/14 17:36:50 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/17 05:10:31 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int			total(t_slist *ite)
 	{
 		if (lstat(ite->data, &a) < 0)
 		{
-			perror(" stat");
+			ft_putnbr(stk);
+			write(1, "\n", 1);
 			return (1);
 		}
 		stk += a.st_blocks;

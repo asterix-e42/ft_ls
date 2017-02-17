@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 07:25:19 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/14 20:03:03 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/17 05:10:37 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,9 @@ int			sorttime(void *t1, void *t2)
 	struct stat		a2;
 
 	if (lstat(((t_slist *)t1)->data, &a1) < 0)
-	{
-		perror(" stat");
-		return (-1);
-	}
+		return (0);
 	if (lstat(((t_slist *)t2)->data, &a2) < 0)
-	{
-		perror(" stat");
-		return (-1);
-	}
+		return (0);
 	return (a1.st_mtime - a2.st_mtime);
 }
 
@@ -147,10 +141,7 @@ int			fichier(char *dir, t_flag_ls *flag, t_slist **tmp, t_slist *ite)
 	if (ite)
 		namef = ite->data;
 	if (lstat(namef, &a) < 0)
-	{
-		perror(" stat");
 		return (1);
-	}
 	if (ite && flag->mr && S_ISDIR(a.st_mode) &&
 			ft_strcmp((char *)(ite->data + ite->sizeofdir + 1), ".") &&
 			ft_strcmp((char *)(ite->data + ite->sizeofdir + 1), ".."))
