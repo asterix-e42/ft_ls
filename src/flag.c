@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 19:33:05 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/12 16:43:15 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/24 06:54:56 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ t_flag_ls	*init_flag_ls(void)
 	tmp->a = 0;
 	tmp->l = 0;
 	tmp->t = 0;
+	tmp->max_lnk = 0;
+	tmp->max_uid = 0;
+	tmp->max_gid = 0;
+	tmp->max_siz = 0;
 	return (tmp);
 }
 
@@ -43,9 +47,9 @@ int			def(t_flag_ls *flag, char *chain)
 			flag->a = 1;
 		else
 		{
-			write(1, "ft_ls: illegal option -- ", 25);
-			write(1, chain, 1);
-			write(1, "\nusage: ft_ls[-Ralrt] [file ...]\n", 33);
+			write(2, "ft_ls: illegal option -- ", 25);
+			write(2, chain, 1);
+			write(2, "\nusage: ft_ls[-Ralrt] [file ...]\n", 33);
 			return (1);
 		}
 	}

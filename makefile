@@ -6,7 +6,7 @@
 #    By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/08 16:51:40 by tdumouli          #+#    #+#              #
-#    Updated: 2017/02/14 19:40:16 by tdumouli         ###   ########.fr        #
+#    Updated: 2017/02/23 16:39:25 by tdumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJDIR = ./objet
 SRCDIR = ./src
 INCDIR = .
 
-LS =	flag.o ft_slist.o ft_slistsort.o l.o test.o
+LS =	repertoire.o flag.o ft_slist.o ft_slistsort.o l.o test.o
 
 LIB = libft/libft.a
 
@@ -34,6 +34,7 @@ GREEN="\x1b[32m"
 YELLOW="\x1b[33m"
 CC = gcc
 CFLAGS = -I$(INCDIR) -Wall -Werror -Wextra
+DEBUG =  -fsanitize=address -g3
 MAKE = /usr/bin/make
 
 LSTDIR=	$(addprefix $(OBJDIR)/, $(LSTDIRI)) \
@@ -61,8 +62,8 @@ $(NAME): $(OBJ)
 	@echo $(GREEN)"library compile"$(NO_COLOR)
 
 $(NAMECPL): $(OBJ)
-	@$(MAKE) -C $(SRCDIR)/libft
-	@$(CC) $(OBJ) $(SRCDIR)/$(LIB) -o $(NAMECPL) -fsanitize=address -g3
+	$(MAKE) -C $(SRCDIR)/libft
+	$(CC) $(OBJ) $(SRCDIR)/$(LIB) -o $(NAMECPL)
 	@echo $(GREEN)$(NAMECPL)" a ete cree"$(NO_COLOR)
 
 clean:

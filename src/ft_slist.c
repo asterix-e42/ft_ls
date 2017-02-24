@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 23:02:45 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/17 04:25:40 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/23 16:23:51 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 t_slist		*ft_slstremp(char *dir, char *ct)
 {
 	t_slist		*ret;
-//	char		*s;
-	char 		sep;
+	char		sep;
 	int			data_siz;
 	int			dir_size;
 
@@ -32,7 +31,6 @@ t_slist		*ft_slstremp(char *dir, char *ct)
 	if (!(ret->data = malloc(dir_size + data_siz + sep + 1)))
 		return (NULL);
 	ret->sizeofdir = dir_size;
-	//(char *)ret->data;
 	*((char *)ret->data + data_siz + dir_size + sep) = 0;
 	while (--data_siz + 1)
 		*(ret->data + data_siz + dir_size + sep) = *(char *)(ct + data_siz);
@@ -41,7 +39,7 @@ t_slist		*ft_slstremp(char *dir, char *ct)
 	while (--dir_size + 1)
 		*(ret->data + dir_size) = *(char *)(dir + dir_size);
 	ret->next = NULL;
-	return(ret);
+	return (ret);
 }
 
 int			ft_slstadd(t_slist **lst, char *dir, char *ct)
@@ -49,7 +47,7 @@ int			ft_slstadd(t_slist **lst, char *dir, char *ct)
 	t_slist		*cel;
 
 	if (!(cel = ft_slstremp(dir, ct)))
-		return(1);
+		return (1);
 	if (*lst)
 		(*lst)->next = cel;
 	*lst = cel;
