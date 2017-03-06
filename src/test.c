@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 07:25:19 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/24 09:05:01 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:08:53 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			morething(char **av, t_flag_ls *flag, int i, int ac)
 	rep = NULL;
 	tmp = NULL;
 	while (ac != ++i)
-		if (lstat(av[i], &a) < 0)
+		if (stat(av[i], &a) < 0)
 		{
 			(err = ft_strjoin("ft_ls: ", av[i]));
 			perror(err);

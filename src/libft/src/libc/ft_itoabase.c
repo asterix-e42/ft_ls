@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 16:12:14 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/02 17:44:39 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/23 16:22:35 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,11 @@ char	*ft_itoabase(unsigned long long int nb, char *b2)
 	char				*ret;
 	unsigned long int	tmp;
 	size_t				size;
-//	int					skt;
 	unsigned int		max;
 
 	if (!b2 && !*b2 && !*(b2 + 1))
 		return (0);
 	tmp = nb;
-//	skt = 0;
 	max = ft_strlen(b2);
 	size = 1;
 	while (tmp /= max)

@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 16:38:41 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/23 16:42:00 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/03/06 15:59:29 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,11 @@ int			parcourtrep(char *dir, t_flag_ls *flag, DIR *p_dir, t_slist **rec)
 	{
 		if (ft_slstadd(&tmp, dir, p_dirent->d_name))
 			ft_slstdel(&ite);
-		if (!tmp)
-			return (-1);
 		if (!ite)
 			ite = tmp;
 	}
 	closedir(p_dir);
+	ft_slstsort(&ite, *ft_slst_strcmp);
 	if (flag->l && (ite->next->next || flag->a))
 		total(ite, flag);
 	if (flag->t)
@@ -113,7 +112,9 @@ int			dossier(char *dir, t_flag_ls *flag)
 	rec = NULL;
 	if ((p_dir = opendir(dir)) == NULL)
 	{
-		while (!(err = ft_strjoin("ft_ls: ", ft_strrchr(dir, '/') + 1)))
+	err = ft_strrchr(dir, '/');
+	err = (!err)?dir:err + 1;
+		while (!(err = ft_strjoin("ft_ls: ", err)))
 			;
 		perror(err);
 		free(err);

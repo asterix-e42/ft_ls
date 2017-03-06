@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 05:36:48 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/06 20:01:12 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/20 19:04:45 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef struct	s_list
 }				t_list;
 
 int				ft_isspace(int c);
-int				ft_intlen(int n);
+size_t			ft_intlen(int n);
 int				ft_power(int n, int p);
 t_list			*ft_lstfind(const t_list *lst, void *data);
 t_list			*ft_lstfindsize(const t_list *lst, int data);

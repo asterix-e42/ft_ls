@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 03:02:10 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/11 14:17:00 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/23 16:21:53 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t		ft_strlen(const void *src)
 	size_t	t;
 
 	if (!src)
-		return(0);
+		return (0);
 	t = 0;
 	while (*(char *)(t + src))
 		t++;

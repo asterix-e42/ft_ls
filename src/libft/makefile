@@ -6,7 +6,7 @@
 #    By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/08 16:51:40 by tdumouli          #+#    #+#              #
-#    Updated: 2017/02/17 05:11:58 by tdumouli         ###   ########.fr        #
+#    Updated: 2017/02/23 17:16:00 by tdumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,10 @@ SRCS =	memset bzero memcpy memccpy memmove memchr memcmp strlen strdup strcpy \
 LST =	lstadd.o lstnew.o lstdel.o lstdelone.o lstiter.o lstmap.o lstfind.o \
 		lstaddend.o	lstfindsize.o lstothernew.o 
 
-OBJ=	$(addsuffix .o, $(addprefix $(OBJDIR)/libc/ft_, $(SRCS))) \
+OBJ =	$(addsuffix .o, $(addprefix $(OBJDIR)/libc/ft_, $(SRCS))) \
 		$(addprefix $(OBJDIR)/liste/ft_, $(LST))
+
+LSTDIRI = libc liste
 
 ############################## normaly no change ###############################
 
@@ -38,16 +40,20 @@ RED="\x1b[31m"
 GREEN="\x1b[32m"
 YELLOW="\x1b[33m"
 CC = gcc
-CFLAGS = -I$(INCDIR) -Wall -Werror -Wextra -fsanitize=address -g3
+CFLAGS = -I$(INCDIR) -Wall -Werror -Wextra
+DEBUG = -fsanitize=address -g3
 MAKE = /usr/bin/make
+LSTDIR=	$(addprefix $(OBJDIR)/, $(LSTDIRI)) \
 
-all: $(NAME)
+all: objdir $(NAME)
 	@echo $(GREEN)"compilation reussi libft"$(NO_COLOR)
 
 anc: $(NAME) $(all)
 
-$(OBJDIR):
-	mkdir $(OBJDIR)
+objdir:
+	@if ! [ -d $(OBJDIR) ]; then\
+		mkdir $(OBJDIR) $(LSTDIR);\
+	fi
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -67,7 +73,7 @@ else
 cleanv:
 	@echo $(RED)"il ya probleme"
 	@echo $(YELLOW)$(shell echo | find . -typr f | grep "\.o" | cat -e)
-	make -d
+	exit
 endif
 
 cl:

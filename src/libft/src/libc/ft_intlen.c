@@ -6,13 +6,15 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/13 20:08:03 by tdumouli          #+#    #+#             */
-/*   Updated: 2016/12/15 03:25:55 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/02/20 19:11:13 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_intlen(int n)
+#include <string.h>
+
+size_t		ft_intlen(int n)
 {
-	int		i;
+	size_t		i;
 
 	i = 0;
 	while (n != 0)

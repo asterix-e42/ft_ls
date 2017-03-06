@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/20 07:25:19 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/24 07:01:28 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/03/02 19:58:05 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void		option_l(struct stat a, t_flag_ls *flag)
 	print(a);
 	write(1, "            ", 2 + flag->max_lnk - ft_intlen(a.st_nlink));
 	ft_putnbr(a.st_nlink);
-	write(1, " ",1);
+	write(1, " ", 1);
 	pwd = getpwuid(a.st_uid);
-		ft_putstr(pwd->pw_name);
+	ft_putstr(pwd->pw_name);
 	write(1, "            ", 2 + flag->max_uid - ft_strlen(pwd->pw_name));
 	grp = getgrgid(a.st_gid);
-		ft_putstr(grp->gr_name);
+	ft_putstr(grp->gr_name);
 	write(1, "             ", 2 + flag->max_gid - ft_strlen(grp->gr_name));
 	write(1, "             ", flag->max_siz - ft_intlen(a.st_size));
 	if (S_ISCHR(a.st_mode) || S_ISBLK(a.st_mode))

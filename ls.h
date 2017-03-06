@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 18:30:55 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/23 16:40:16 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/03/02 20:18:22 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_slist
 	struct s_slist	*next;
 }				t_slist;
 
+int				ft_slst_strcmp(void *s1, void *s2);
 int				ft_slstadd(t_slist **q, char *i, char *c);
 void			ft_slstdelone(t_slist **q);
 void			ft_slstdel(t_slist **q);

@@ -6,14 +6,14 @@
 #    By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/08 16:51:40 by tdumouli          #+#    #+#              #
-#    Updated: 2017/02/23 16:39:25 by tdumouli         ###   ########.fr        #
+#    Updated: 2017/03/02 20:30:23 by tdumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 SPEUDO = "tdumouli"
-NAME = 
-NAMECPL = ft_ls
+NAMEI =
+NAME = ft_ls
 OBJDIR = ./objet
 SRCDIR = ./src
 INCDIR = .
@@ -39,11 +39,11 @@ MAKE = /usr/bin/make
 
 LSTDIR=	$(addprefix $(OBJDIR)/, $(LSTDIRI)) \
 
-ifneq ($(NAME), )
-all: objdir $(NAME)
+ifneq ($(NAMEI), )
+all: objdir $(NAMEI)
 	@echo $(GREEN)"compilation reussi"$(NO_COLOR)
 else
-all: objdir $(NAMECPL)
+all: objdir $(NAME)
 	@echo $(GREEN)"compilation reussi cpl"$(NO_COLOR)
 endif
 
@@ -56,14 +56,14 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo $(GREEN)$@" compile"$(NO_COLOR)
 
-$(NAME): $(OBJ)
+$(NAMEI): $(OBJ)
 	@ar cr $(NAME) $(OBJ)
 	@ranlib $(NAME)
 	@echo $(GREEN)"library compile"$(NO_COLOR)
 
-$(NAMECPL): $(OBJ)
+$(NAME): $(OBJ)
 	$(MAKE) -C $(SRCDIR)/libft
-	$(CC) $(OBJ) $(SRCDIR)/$(LIB) -o $(NAMECPL)
+	$(CC) $(OBJ) $(SRCDIR)/$(LIB) -o $(NAME)
 	@echo $(GREEN)$(NAMECPL)" a ete cree"$(NO_COLOR)
 
 clean:
@@ -92,7 +92,7 @@ auteur:
 
 fclean: clean
 	@$(MAKE) fclean -C $(SRCDIR)/libft
-	@rm -f $(NAMECPL) $(NAMELIB)
+	@rm -f $(NAME) $(NAMELIB)
 	@echo $(GREEN)"tout est clean"$(NO_COLOR)
 
 re: fclean all
