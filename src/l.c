@@ -21,6 +21,29 @@
 #include <grp.h>
 #include <stdio.h>
 
+
+static void	permission(mode_t m)
+{
+	ft_putchar(m & S_IRUSR ? 'r' : '-');
+	ft_putchar(m & S_IWUSR ? 'w' : '-');
+	if (m & S_ISUID)
+		ft_putchar(m & S_IXUSR ? 's' : 'S');
+	else
+		ft_putchar(m & S_IXUSR ? 'x' : '-');
+	ft_putchar(m & S_IRGRP ? 'r' : '-');
+	ft_putchar(m & S_IWGRP ? 'w' : '-');
+	if (m & S_ISGID)
+		ft_putchar(m & S_IXGRP ? 's' : 'S');
+	else
+		ft_putchar(m & S_IXGRP ? 'x' : '-');
+	ft_putchar(m & S_IROTH ? 'r' : '-');
+	ft_putchar(m & S_IWOTH ? 'w' : '-');
+	if (m & S_ISVTX)
+		ft_putchar(m & S_IXOTH ? 't' : 'T');
+	else
+		ft_putchar(m & S_IXOTH ? 'x' : '-');
+}
+
 static void	print(struct stat filestat)
 {
 	if (S_ISDIR(filestat.st_mode))
@@ -39,15 +62,7 @@ static void	print(struct stat filestat)
 		write(1, "-", 1);
 	else
 		write(1, "?", 1);
-	write(1, (filestat.st_mode & S_IRUSR) ? "r" : "-", 1);
-	write(1, (filestat.st_mode & S_IWUSR) ? "w" : "-", 1);
-	write(1, (filestat.st_mode & S_IXUSR) ? "x" : "-", 1);
-	write(1, (filestat.st_mode & S_IRGRP) ? "r" : "-", 1);
-	write(1, (filestat.st_mode & S_IWGRP) ? "w" : "-", 1);
-	write(1, (filestat.st_mode & S_IXGRP) ? "x" : "-", 1);
-	write(1, (filestat.st_mode & S_IROTH) ? "r" : "-", 1);
-	write(1, (filestat.st_mode & S_IWOTH) ? "w" : "-", 1);
-	write(1, (filestat.st_mode & S_IXOTH) ? "x" : "-", 1);
+	permission(filestat.st_mode);
 }
 
 void		ft_major(struct stat a)
@@ -114,7 +129,7 @@ int			total(t_slist *ite, t_flag_ls *flag)
 	flag->max_siz = 0;
 	while (ite)
 	{
-		if (lstat(ite->data, &a) < 0)
+		if (stat(ite->data, &a) < 0)
 		{
 			ft_putnbr(stk);
 			write(1, "\n", 1);
