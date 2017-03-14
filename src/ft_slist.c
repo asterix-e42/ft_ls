@@ -6,7 +6,7 @@
 /*   By: tdumouli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 23:02:45 by tdumouli          #+#    #+#             */
-/*   Updated: 2017/02/23 16:23:51 by tdumouli         ###   ########.fr       */
+/*   Updated: 2017/03/14 16:42:17 by tdumouli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 #include "libft/include/libft.h"
 #include <stdlib.h>
 
+#include <stdio.h>
 t_slist		*ft_slstremp(char *dir, char *ct)
 {
 	t_slist		*ret;
 	char		sep;
 	int			data_siz;
 	int			dir_size;
+
 
 	dir_size = 0;
 	sep = 0;
@@ -30,7 +32,7 @@ t_slist		*ft_slstremp(char *dir, char *ct)
 		return (NULL);
 	if (!(ret->data = malloc(dir_size + data_siz + sep + 1)))
 		return (NULL);
-	ret->sizeofdir = dir_size;
+	ret->sizeofdir = dir_size - !sep;
 	*((char *)ret->data + data_siz + dir_size + sep) = 0;
 	while (--data_siz + 1)
 		*(ret->data + data_siz + dir_size + sep) = *(char *)(ct + data_siz);
